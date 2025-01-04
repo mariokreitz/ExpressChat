@@ -1,0 +1,35 @@
+<div class="chat-container">
+  <div class="user-list">
+    <h3>Online Benutzer</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let user of onlineUsers">
+        <mat-icon color="primary">person</mat-icon>
+        {{ user }}
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <div class="chat-wrapper">
+    <div class="chat-messages">
+      <div *ngFor="let message of messages" class="message">
+        <b>{{ message.sender }}</b
+        >: {{ message.content }}
+      </div>
+    </div>
+
+    <div class="message-input">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Nachricht</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="newMessage"
+          (keydown.enter)="sendMessage()"
+        ></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="sendMessage()">
+        Senden
+      </button>
+    </div>
+  </div>
+</div>
