@@ -23,7 +23,7 @@ export const login = async (req, res) => {
 };
 
 export const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -32,7 +32,7 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
-      username: `User${(await User.countDocuments()) + 1}`,
+      username,
       email,
       password: hashedPassword,
       registered: Date.now(),
