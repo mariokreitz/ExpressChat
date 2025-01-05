@@ -10,6 +10,6 @@ export const appConfig: ApplicationConfig = {
 };
 
 export const environment = {
-  production: true,
-  socketUrl: "http://128.65.199.72:3000",
+  production: false,
+  socketUrl: "http://localhost:3000",
 };
