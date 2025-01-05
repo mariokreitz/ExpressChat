@@ -16,20 +16,17 @@ export class AuthService {
     return this.http.post<{ token: string; user: any }>(`${this.API_URI}/login`, credentials);
   }
 
-  register({ email, password }: { email: string; password: string }): Observable<void> {
-    return this.http.post<void>(`${this.API_URI}/register`, {
-      email,
-      password,
-    });
+  register(credentials: { username: string; email: string; password: string }): Observable<void> {
+    return this.http.post<void>(`${this.API_URI}/register`, credentials);
   }
 
   setUserData(data: any): void {
     sessionStorage.setItem(this.USER_DATA_KEY, JSON.stringify(data));
   }
 
-  getUserData(): void {
-    const data = sessionStorage.getItem(this.USER_DATA_KEY);
-    return data ? JSON.parse(data) : null;
+  getUserData(): any {
+    const storedData = sessionStorage.getItem(this.USER_DATA_KEY);
+    return storedData ? JSON.parse(storedData) : null;
   }
 
   clearUserData(): void {
