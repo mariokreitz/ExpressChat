@@ -37,8 +37,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", async (data) => {
-    console.log("Nachricht empfangen:", data);
-
     const newMessage = new Message({
       sender: data.sender,
       content: data.content,
