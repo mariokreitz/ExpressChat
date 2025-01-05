@@ -38,10 +38,10 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", async (data) => {
     const newMessage = new Message({
+      timestamp: data.timestamp,
       sender: data.sender,
       content: data.content,
     });
-
     await newMessage.save();
 
     io.emit("newMessage", data);
