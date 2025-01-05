@@ -24,11 +24,11 @@ export class ChatService {
     this.socket.on("onlineUsers", (onlineUsers) => callback(onlineUsers));
   }
 
-  sendMessage(message: { sender: string; content: string }): void {
+  sendMessage(message: { timestamp: string; sender: string; content: string }): void {
     this.socket.emit("sendMessage", message);
   }
 
-  onNewMessage(callback: (message: { sender: string; receiver: string; content: string }) => void): void {
+  onNewMessage(callback: (message: { timestamp: string; sender: string; receiver: string; content: string }) => void): void {
     this.socket.on("newMessage", callback);
   }
 
