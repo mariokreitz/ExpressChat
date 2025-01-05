@@ -16,7 +16,7 @@ export const login = async (req, res) => {
       expiresIn: "1h",
     });
 
-    return res.json({ token });
+    return res.json({ user: user, token });
   } catch (err) {
     return res.status(500).json({ message: "Interner Serverfehler" });
   }
@@ -35,6 +35,7 @@ export const register = async (req, res) => {
       username: `User${(await User.countDocuments()) + 1}`,
       email,
       password: hashedPassword,
+      registered: Date.now(),
     });
 
     await newUser.save();
