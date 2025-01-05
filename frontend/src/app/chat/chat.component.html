@@ -1,35 +1,37 @@
 <div class="chat-container">
   <div class="user-list">
-    <h3>Online Benutzer</h3>
-    <mat-list>
-      <mat-list-item *ngFor="let user of onlineUsers">
-        <mat-icon color="primary">person</mat-icon>
-        {{ user }}
-      </mat-list-item>
-    </mat-list>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Online Benutzer</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let user of onlineUsers" class="user-item">
+            <mat-icon color="primary">person</mat-icon>
+            <span>{{ user }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
   </div>
-
   <div class="chat-wrapper">
-    <div class="chat-messages">
-      <div *ngFor="let message of messages" class="message">
-        <b>{{ message.sender }}</b
-        >: {{ message.content }}
-      </div>
-    </div>
-
-    <div class="message-input">
+    <mat-card class="chat-messages">
+      <mat-card-header>
+        <mat-card-title>Chat</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let message of messages" class="message">
+          <b>{{ message.sender }}</b
+          >: {{ message.content }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="message-input">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Nachricht</mat-label>
-        <textarea
-          matInput
-          [(ngModel)]="newMessage"
-          (keydown.enter)="sendMessage()"
-        ></textarea>
+        <textarea matInput [(ngModel)]="newMessage" (keydown.enter)="sendMessage()" placeholder="Schreibe eine Nachricht..."></textarea>
       </mat-form-field>
-
-      <button mat-raised-button color="primary" (click)="sendMessage()">
-        Senden
-      </button>
-    </div>
+      <button mat-raised-button color="primary" (click)="sendMessage()" [disabled]="!newMessage.trim()">Senden</button>
+    </mat-card>
   </div>
 </div>
