@@ -1,4 +1,6 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ChatService } from "../chat.service";
+import { AuthService } from "../auth.service";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from "@angular/common";
@@ -6,12 +8,11 @@ import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
-import { ChatService } from "../chat.service";
-import { AuthService } from "../auth.service";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
   selector: "app-chat",
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatListModule],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatListModule, MatCardModule],
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
 })
@@ -23,22 +24,26 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(private chatService: ChatService, private authService: AuthService) {}
 
-  ngOnInit() {
-    this.chatService.connect();
+  ngOnInit(): void {
     this.currentUser = this.authService.getUserData();
-    this.chatService.join(this.currentUser.username);
-    this.chatService.onOnlineUsers((users: string[]) => (this.onlineUsers = users));
+
     this.chatService.onNewMessage((message: { sender: string; content: string }) => {
       this.messages.push(message);
       this.scrollToBottomOfChatMessages();
     });
+
+    this.chatService.onOnlineUsers((users: string[]) => (this.onlineUsers = users));
+
+    this.chatService.connect();
+
+    this.chatService.join(this.currentUser.username);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.chatService.disconnect();
   }
 
-  sendMessage() {
+  sendMessage(): void {
     if (this.newMessage.trim()) {
       const message = {
         sender: this.currentUser.username,
