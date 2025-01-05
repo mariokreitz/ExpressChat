@@ -6,7 +6,7 @@
       </mat-card-header>
       <mat-card-content>
         <mat-list>
-          <mat-list-item *ngFor="let user of onlineUsers" class="user-item">
+          <mat-list-item *ngFor="let user of onlineUsers">
             <mat-icon color="primary">person</mat-icon>
             <span>{{ user }}</span>
           </mat-list-item>
@@ -14,6 +14,7 @@
       </mat-card-content>
     </mat-card>
   </div>
+
   <div class="chat-wrapper">
     <mat-card class="chat-messages">
       <mat-card-header>
@@ -21,7 +22,8 @@
       </mat-card-header>
       <mat-card-content>
         <div *ngFor="let message of messages" class="message">
-          <b>{{ message.sender }}</b
+          <span class="time">{{ message.timestamp | date : "shortTime" }}</span
+          ><b>{{ message.sender }}</b
           >: {{ message.content }}
         </div>
       </mat-card-content>
@@ -32,6 +34,21 @@
         <textarea matInput [(ngModel)]="newMessage" (keydown.enter)="sendMessage()" placeholder="Schreibe eine Nachricht..."></textarea>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="sendMessage()" [disabled]="!newMessage.trim()">Senden</button>
+    </mat-card>
+  </div>
+
+  <div class="profile-panel">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Profil</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="profile-info">
+          <img src="https://placehold.co/10" alt="Avatar" />
+          <h3>{{ currentUser?.username }}</h3>
+          <p>Email: {{ currentUser?.email }}</p>
+        </div>
+      </mat-card-content>
     </mat-card>
   </div>
 </div>
