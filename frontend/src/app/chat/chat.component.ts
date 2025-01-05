@@ -9,25 +9,36 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-chat",
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatListModule, MatCardModule],
+  imports: [
+    RouterModule,
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatListModule,
+    MatCardModule,
+  ],
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
 })
 export class ChatComponent implements OnInit, OnDestroy {
   onlineUsers: string[] = [];
-  messages: { sender: string; content: string }[] = [];
+  messages: { timestamp: string; sender: string; content: string }[] = [];
   newMessage: string = "";
   currentUser: any;
 
-  constructor(private chatService: ChatService, private authService: AuthService) {}
+  constructor(private chatService: ChatService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.currentUser = this.authService.getUserData();
 
-    this.chatService.onNewMessage((message: { sender: string; content: string }) => {
+    this.chatService.onNewMessage((message: { timestamp: string; sender: string; content: string }) => {
       this.messages.push(message);
       this.scrollToBottomOfChatMessages();
     });
@@ -46,6 +57,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   sendMessage(): void {
     if (this.newMessage.trim()) {
       const message = {
+        timestamp: new Date().toLocaleString(),
         sender: this.currentUser.username,
         content: this.newMessage.trim(),
       };
@@ -53,6 +65,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.newMessage = "";
       this.scrollToBottomOfChatMessages();
     }
+  }
+
+  editProfile() {
+    this.router.navigate(["/profile"]);
   }
 
   private scrollToBottomOfChatMessages(): void {
