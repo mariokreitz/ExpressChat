@@ -1,45 +1,54 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { AuthService } from '../auth.service';
+import { Router, RouterModule } from "@angular/router";
+import { AuthService } from "../auth.service";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
-  selector: 'app-register',
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: "app-register",
+  imports: [FormsModule, CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule],
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
-  errorMessage: string = '';
+  name: string = "";
+  email: string = "";
+  password: string = "";
+  confirmPassword: string = "";
+  errorMessage: string = "";
+  showPassword: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     if (this.password !== this.confirmPassword) {
-      this.errorMessage = 'Die Passwörter stimmen nicht überein!';
+      this.errorMessage = "Passwörter stimmen nicht überein.";
       return;
     }
 
-    const credentials = {
+    const registerData = {
+      username: this.name,
       email: this.email,
       password: this.password,
     };
 
-    this.authService.register(credentials).subscribe({
+    this.authService.register(registerData).subscribe({
       next: () => {
-        this.router.navigate(['/login']);
+        this.router.navigate(["/login"]);
       },
-      error: (error) => {
-        this.errorMessage = `Registrierungsfehler: ${error.message}`;
+      error: (err) => {
+        this.errorMessage = `Fehler bei der Registrierung: ${err.message}`;
       },
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }
