@@ -14,7 +14,6 @@
       </mat-card-content>
     </mat-card>
   </div>
-
   <div class="chat-wrapper">
     <mat-card class="chat-messages">
       <mat-card-header>
@@ -22,8 +21,8 @@
       </mat-card-header>
       <mat-card-content>
         <div *ngFor="let message of messages" class="message">
-          <span class="time">{{ message.timestamp | date : "shortTime" }}</span
-          ><b>{{ message.sender }}</b
+          <span class="time">{{ message.timestamp | date : "shortTime" : "de-DE" }}</span>
+          <b>{{ message.sender }}</b
           >: {{ message.content }}
         </div>
       </mat-card-content>
@@ -36,7 +35,6 @@
       <button mat-raised-button color="primary" (click)="sendMessage()" [disabled]="!newMessage.trim()">Senden</button>
     </mat-card>
   </div>
-
   <div class="profile-panel">
     <mat-card>
       <mat-card-header>
@@ -44,10 +42,14 @@
       </mat-card-header>
       <mat-card-content>
         <div class="profile-info">
-          <img src="https://placehold.co/10" alt="Avatar" />
-          <h3>{{ currentUser?.username }}</h3>
-          <p>Email: {{ currentUser?.email }}</p>
+          <img src="https://placehold.co/100" alt="Avatar" />
+          <h3>
+            {{ currentUser.username }} <span class="user-status">{{ currentUser.status }}</span>
+          </h3>
+          <p>Email: {{ currentUser.email }}</p>
+          <p>Mitglied seit: {{ currentUser.registered | date }}</p>
         </div>
+        <button mat-raised-button color="warn" (click)="logout()">Logout</button>
       </mat-card-content>
     </mat-card>
   </div>
