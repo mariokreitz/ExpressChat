@@ -11,5 +11,5 @@ export const appConfig: ApplicationConfig = {
 
 export const environment = {
   production: true,
-  socketUrl: "http://api.mario-kreitz.dev:3000",
+  socketUrl: "http://128.65.199.72:3000",
 };
