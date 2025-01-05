@@ -29,25 +29,30 @@ import { Router, RouterModule } from "@angular/router";
 })
 export class ChatComponent implements OnInit, OnDestroy {
   onlineUsers: string[] = [];
-  messages: { timestamp: string; sender: string; content: string }[] = [];
+  messages: { timestamp: Date; sender: string; content: string }[] = [];
   newMessage: string = "";
-  currentUser: any;
+  currentUser: { email: string; registered: string; status: string; username: string } = {
+    email: "unknown",
+    registered: "unknown",
+    status: "unknown",
+    username: "unknown",
+  };
 
   constructor(private chatService: ChatService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.currentUser = this.authService.getUserData();
+    this.chatService.connect(this.currentUser.username);
 
-    this.chatService.onNewMessage((message: { timestamp: string; sender: string; content: string }) => {
+    this.chatService.join(this.currentUser.username);
+    this.chatService.onOnlineUsers((users: string[]) => {
+      this.onlineUsers = users;
+    });
+
+    this.chatService.onNewMessage((message: { timestamp: Date; sender: string; content: string }) => {
       this.messages.push(message);
       this.scrollToBottomOfChatMessages();
     });
-
-    this.chatService.onOnlineUsers((users: string[]) => (this.onlineUsers = users));
-
-    this.chatService.connect();
-
-    this.chatService.join(this.currentUser.username);
   }
 
   ngOnDestroy(): void {
@@ -57,7 +62,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   sendMessage(): void {
     if (this.newMessage.trim()) {
       const message = {
-        timestamp: new Date().toLocaleString(),
+        timestamp: Date.now(),
         sender: this.currentUser.username,
         content: this.newMessage.trim(),
       };
@@ -67,8 +72,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  editProfile() {
-    this.router.navigate(["/profile"]);
+  logout() {
+    this.authService.logout();
+    this.router.navigate(["/login"]);
   }
 
   private scrollToBottomOfChatMessages(): void {
