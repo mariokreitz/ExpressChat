@@ -5,10 +5,13 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
   selector: "app-login",
-  imports: [FormsModule, CommonModule, RouterModule, MatFormFieldModule, MatInputModule],
+  imports: [FormsModule, CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule],
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +20,7 @@ export class LoginComponent {
   email: string = "";
   password: string = "";
   errorMessage: string = "";
+  showPassword: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -36,5 +40,13 @@ export class LoginComponent {
         this.errorMessage = `Fehler beim Login: ${err.message}`;
       },
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  resetPassword(): void {
+    alert("Passwort-Reset ist noch nicht implementiert.");
   }
 }
