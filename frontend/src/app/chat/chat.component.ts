@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { io } from "socket.io-client";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { environment } from "../app.config";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { ChatService } from "../chat.service";
