@@ -20,6 +20,10 @@ export class AuthService {
     return this.http.post<void>(`${this.API_URI}/register`, credentials);
   }
 
+  logout(): void {
+    this.clearUserData();
+  }
+
   setUserData(data: any): void {
     sessionStorage.setItem(this.USER_DATA_KEY, JSON.stringify(data));
   }
@@ -31,5 +35,6 @@ export class AuthService {
 
   clearUserData(): void {
     sessionStorage.removeItem(this.USER_DATA_KEY);
+    sessionStorage.removeItem("authToken");
   }
 }
