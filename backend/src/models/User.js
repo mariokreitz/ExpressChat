@@ -6,6 +6,7 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   avatar: String,
   status: { type: String, default: "offline" },
+  registered: { type: Date, required: true },
 });
 
 export default model("User", userSchema);
