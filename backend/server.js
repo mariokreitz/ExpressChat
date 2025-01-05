@@ -12,7 +12,15 @@ import Message from "./src/models/Message.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
@@ -59,7 +67,7 @@ connect(process.env.MONGO_URI)
     console.log("Mit MongoDB verbunden");
     const PORT = process.env.PORT || 3000;
     server.listen(PORT, () => {
-      console.log(`Server läuft auf http://localhost:${PORT}`);
+      console.log(`Server läuft auf http://0.0.0.0:${PORT}`);
     });
   })
   .catch((err) => {
