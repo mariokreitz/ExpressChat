@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { io } from "socket.io-client";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
@@ -17,7 +17,7 @@ import { AuthService } from "../auth.service";
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   onlineUsers: string[] = [];
   messages: { sender: string; content: string }[] = [];
   newMessage: string = "";
@@ -34,6 +34,10 @@ export class ChatComponent implements OnInit {
       this.messages.push(message);
       this.scrollToBottomOfChatMessages();
     });
+  }
+
+  ngOnDestroy() {
+    this.chatService.disconnect();
   }
 
   sendMessage() {
