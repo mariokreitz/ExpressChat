@@ -24,17 +24,18 @@ export class ChatService {
     this.socket.on("onlineUsers", (onlineUsers) => callback(onlineUsers));
   }
 
-  sendMessage(message: { timestamp: string; sender: string; content: string }): void {
+  sendMessage(message: { timestamp: number; sender: string; content: string }): void {
     this.socket.emit("sendMessage", message);
   }
 
-  onNewMessage(callback: (message: { timestamp: string; sender: string; receiver: string; content: string }) => void): void {
+  onNewMessage(callback: (message: { timestamp: Date; sender: string; receiver: string; content: string }) => void): void {
     this.socket.on("newMessage", callback);
   }
 
-  connect(): void {
+  connect(currentUser: string): void {
     this.socket.on("connect", () => {
       console.log("Verbindung hergestellt!");
+      this.sendMessage({ timestamp: Date.now(), sender: currentUser, content: "hat den Chat betreten" });
     });
   }
 
