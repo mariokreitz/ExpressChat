@@ -2,68 +2,102 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-  padding: 16px;
-  gap: 16px;
 }
 
 .user-list {
-  width: 20%;
-  max-width: 300px;
-  min-width: 200px;
-}
-
-.user-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
+  width: 25%;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
 .chat-wrapper {
+  width: 75%;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  gap: 16px;
+  height: 100%;
 }
 
 .chat-messages {
-  flex: 1;
+  flex-grow: 1;
+  padding: 10px;
   overflow-y: auto;
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 16px;
+  background-color: #ffffff;
+  height: calc(100% - 60px);
+  box-sizing: border-box;
 }
 
 .message {
-  padding: 8px;
-  border-bottom: 1px solid #f0f0f0;
-  word-break: break-word;
+  margin-bottom: 10px;
+}
 
-  &:last-child {
-    border-bottom: none;
-  }
+.time {
+  font-size: 0.8em;
+  color: #999;
+  margin-right: 10px;
 }
 
 .message-input {
   display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  padding: 16px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
 mat-form-field {
-  flex: 1;
-}
-
-.full-width {
   width: 100%;
 }
 
-button[mat-raised-button] {
-  min-width: 100px;
+.full-width {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+.profile-panel,
+.online-users {
+  width: 25%;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.profile-panel {
+  border-right: 1px solid #ccc;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+mat-list-item mat-icon {
+  margin-right: 10px;
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.profile-info img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.profile-info h3 {
+  margin: 10px 0;
+}
+
+.profile-info p {
+  margin: 0;
 }
