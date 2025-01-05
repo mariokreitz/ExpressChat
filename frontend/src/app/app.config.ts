@@ -1,20 +1,15 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
+import { provideRouter } from "@angular/router";
 
-import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { routes } from "./app.routes";
+import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
+import { provideHttpClient } from "@angular/common/http";
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideHttpClient(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-    provideAnimationsAsync(),
-  ],
+  providers: [provideHttpClient(), provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()],
 };
 
 export const environment = {
-  production: false,
-  socketUrl: 'http://localhost:3000',
+  production: true,
+  socketUrl: "http://api.mario-kreitz.dev:3000",
 };
