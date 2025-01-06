@@ -1,9 +1,10 @@
 import express from "express";
-import http from "http";
+import https from "https";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connect } from "mongoose";
+import fs from "fs";
 
 import authRoutes from "./src/routes/auth.js";
 import authMiddleware from "./src/middleware/authMiddleware.js";
@@ -13,16 +14,20 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
-
 app.use(express.json());
-
 app.use("/api/auth", authRoutes);
 
-const server = http.createServer(app);
+const options = {
+  cert: fs.readFileSync("/etc/ssl/certs/fullchain.pem"),
+  key: fs.readFileSync("/etc/ssl/private/privkey.pem"),
+};
+
+const server = https.createServer(options, app);
+
 const io = new Server(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "OPTION"],
   },
 });
 
@@ -58,9 +63,9 @@ io.on("connection", (socket) => {
 connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Mit MongoDB verbunden");
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 443;
     server.listen(PORT, () => {
-      console.log(`Server läuft auf http://0.0.0.0:${PORT}`);
+      console.log(`HTTPS Server läuft auf Port ${PORT}`);
     });
   })
   .catch((err) => {
