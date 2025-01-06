@@ -1,9 +1,19 @@
-version: "3"
+version: "3.8"
 services:
   api:
     build: .
     ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    restart: unless-stopped
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/api.mario-kreitz.dev:/etc/ssl/certs
+      - /etc/letsencrypt/archive/api.mario-kreitz.dev:/etc/ssl/private
+    environment:
+      - NODE_ENV=production
+      - PORT=443
+      - MONGO_URI=${MONGO_URI}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
