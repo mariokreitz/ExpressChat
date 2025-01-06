@@ -1,3 +1,4 @@
+# docker-compose.yml
 version: "3.8"
 services:
   api:
@@ -5,8 +6,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - /etc/letsencrypt/live/api.mario-kreitz.dev:/etc/ssl/certs
-      - /etc/letsencrypt/archive/api.mario-kreitz.dev:/etc/ssl/private
+      - /etc/letsencrypt/:/etc/letsencrypt/
     environment:
       - NODE_ENV=production
       - PORT=443
