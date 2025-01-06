@@ -10,6 +10,6 @@ export const appConfig: ApplicationConfig = {
 };
 
 export const environment = {
-  production: false,
-  socketUrl: "http://localhost:3000",
+  production: true,
+  socketUrl: "https://api.mario-kreitz.dev:443",
 };
