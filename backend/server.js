@@ -18,8 +18,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 
 const options = {
-  cert: fs.readFileSync("/etc/ssl/certs/fullchain.pem"),
-  key: fs.readFileSync("/etc/ssl/private/privkey.pem"),
+  cert: fs.readFileSync("/etc/letsencrypt/live/api.mario-kreitz.dev/fullchain.pem"),
+  key: fs.readFileSync("/etc/letsencrypt/live/api.mario-kreitz.dev/privkey.pem"),
 };
 
 const server = https.createServer(options, app);
