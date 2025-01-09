@@ -1,6 +1,8 @@
 # ExpressChat
 
-**ExpressChat** is a real-time chat application designed to explore full-stack development using **Node.js**, **Express.js**, **Angular 19**, and **Socket.IO**. This project serves as an opportunity to dive into both the backend and frontend aspects of modern web development, focusing on real-time communication.
+**ExpressChat** is a real-time chat application designed to explore full-stack development using **Node.js**, **Express.js**, **Angular 19**, and **Socket.IO**. This project served as an opportunity to dive into both the backend and frontend aspects of modern web development, focusing on real-time communication.
+
+> **Note**: This repository is archived and will no longer be actively developed. It was originally created as a test project for learning full-stack development and is now kept for reference and personal use.
 
 ## 📂 Project Structure
 
@@ -124,4 +126,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Feel free to fork this repository and contribute. This is a learning project, so pull requests are welcome!
+Feel free to fork this repository for your reference. This project is archived and will not receive further updates, but it serves as a learning project for full-stack development.
